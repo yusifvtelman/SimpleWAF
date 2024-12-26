@@ -1,6 +1,4 @@
 from flask import Flask, request, render_template
-from waf import wafCheck
-
 
 app = Flask(__name__)
 
@@ -8,12 +6,9 @@ app = Flask(__name__)
 def index():
     name = request.args.get('name')
     if name:
-        message = f"Hello, {name}!"
+        message = f"Hello, {name}!"  # VULNERABLE: No escaping!
     else:
         message = "Please input your name:"
-
-    wafCheck(message)
-
     return render_template('index.html', message=message)
 
 if __name__ == '__main__':

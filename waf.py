@@ -1,5 +1,6 @@
+import re
 
+XSS_PATTERN = "<script>"
 
-
-def wafCheck(message):
-    print("WAF Check: ", message)
+def wafCheck(input):
+    print("WAF Check: ", input)
