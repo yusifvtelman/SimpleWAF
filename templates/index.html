@@ -57,11 +57,13 @@
     </style>
 </head>
 <body>
-    <form action="/" method="GET">
-        <p>{{ message }}</p>
-        <label for="name">Your Name:</label>
-        <input type="text" id="name" name="name" required>
-        <input type="submit" value="Submit">
-    </form>
+    <body>
+        <form action="/" method="GET">
+            <p>{{ message|safe }}</p> <!-- Deliberately unsafe rendering -->
+            <label for="name">Your Name:</label>
+            <input type="text" id="name" name="name" required>
+            <input type="submit" value="Submit">
+        </form>
+    </body>    
 </body>
 </html>
