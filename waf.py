@@ -3,14 +3,19 @@ import html
 import urllib.parse
 
 xss_regex = re.compile(
-    r"(?i)<(script|iframe|img|svg|object|embed|style|link|base|meta)[^>]*>|on[a-z]+\s*=|javascript:|data:text/html|&#x[0-9a-f]+;"
+    r"(?i)<(script|iframe|img|svg|object|embed|style|link|base|meta|form|input|textarea|button|a)[^>]*>"
+    r"|on[a-z]+\s*="
+    r"|javascript:"
+    r"|data:text/html"
+    r"|&#[xX]?[0-9a-fA-F]+;"  
+    r"|[\\x00-\\x1F\\x7F]"    
+    r"|<!--.*-->"               
+    r"|<.*?[^a-zA-Z0-9]>.*?"  
 )
 
 def decoder(input):
-
     payload = urllib.parse.unquote(input)
     payload = html.unescape(payload)
-    print(f"Decoded Payload: {payload}")
     return payload
 
 def waf_check(payload):
@@ -18,18 +23,21 @@ def waf_check(payload):
         return True, "XSS"
     return False, "Clean"
 
-test_payloads = [
-    '<script>alert("XSS")</script>',         
-    '<img src="x" onerror="alert(1)">',      
-    'javascript:alert("XSS")',              
-    '<svg><script>alert("XSS")</script></svg>',
-    '<a href="data:text/html;base64,...">',  
-    'Hello, world!',                         
-    'onload=alert(1)',                      
-    '&#x3c;script&#x3e;alert(1)&#x3c;/script&#x3e;',
-]
+def read_payloads():
+    with open("payloads.txt", "r") as f:
+        payloads = f.readlines()
+    return payloads 
 
-for ipayload in test_payloads:
-    print(f"Testing payload: {ipayload}")
-    decoder(ipayload)
-   
+def test():
+    payloads = read_payloads()
+    n = 0
+    for payload in payloads:
+        payload = decoder(payload)
+        result, message = waf_check(payload)
+
+        if result==False:
+            n=n+1
+            print(f"Payload no {n}: {payload} => {message} Detected: {result}")
+
+if __name__ == "__main__":
+    test()
