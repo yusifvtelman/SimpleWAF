@@ -6,10 +6,11 @@ xss_regex = re.compile(
     r"(?i)<(script|iframe|img|svg|object|embed|style|link|base|meta)[^>]*>|on[a-z]+\s*=|javascript:|data:text/html|&#x[0-9a-f]+;"
 )
 
-def decode_input(input_data):
-    payload = input_data.strip()
-    payload = urllib.parse.unquote(payload)
-    payload = html.escape(payload)
+def decoder(input):
+
+    payload = urllib.parse.unquote(input)
+    payload = html.unescape(payload)
+    print(f"Decoded Payload: {payload}")
     return payload
 
 def waf_check(payload):
@@ -28,7 +29,7 @@ test_payloads = [
     '&#x3c;script&#x3e;alert(1)&#x3c;/script&#x3e;',
 ]
 
-for idx, payload in enumerate(test_payloads, start=1):
-    decoded_payload = decode_input(payload)
-    is_xss, attack_type = waf_check(decoded_payload)
-    print(f"Test {idx}: {'XSS Detected' if is_xss else 'Clean'} - {attack_type} - {decoded_payload}")
+for ipayload in test_payloads:
+    print(f"Testing payload: {ipayload}")
+    decoder(ipayload)
+   
