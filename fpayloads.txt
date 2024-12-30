@@ -1,0 +1,27 @@
+Hello, how are you today?
+Please contact support@example.com for more information.
+Here's a link to my website: https://www.mysite.com
+This is a test string without any HTML tags.
+Welcome to the site, please enjoy your stay.
+Plain text content: The weather is nice today.
+Here are some random numbers: 1234567890.
+The email address is user@domain.com.
+This is a simple sentence with no special characters.
+Just checking if this triggers anything: &amp; is a common HTML entity.
+Here are some emojis: 😀, 😄, 😅.
+This is some regular text with no XSS attempt.
+Numbers and characters together: abc1234xyz
+No JavaScript in this text, just words: Hello World.
+Plain text with special characters: <div>Test</div> (no malicious code).
+Just some normal user input like this: Hey, how's it going?
+A simple URL with no scripts: https://www.example.com
+Can you please send the report to email@example.com?
+I like cats and dogs! 🐱🐶
+Here is a valid phone number: +1234567890.
+Just normal content with symbols: & ^ % $ @ ! * ( )
+Testing user inputs with multiple characters: A, B, C, D, E, F.
+Thank you for visiting our site! If you have any questions, let us know.
+This text has no scripts but includes special HTML characters: < > &.
+Normal HTML tags: <div>Text here</div> (not an attack).
+We have a link to an external resource: https://www.example.com/resources.
+Just random punctuation and characters: !@#$%^&*()
